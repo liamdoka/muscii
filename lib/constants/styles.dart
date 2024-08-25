@@ -30,7 +30,27 @@ Map<int, Color> accentColor = {
 
 final bigButtonStyle = TextButton.styleFrom(
   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-  backgroundColor: accentColor[600],
+  backgroundColor: accentColor[700],
   foregroundColor: primaryColor[50],
 );
 
+const headerTextStyle = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
+);
+
+final textFieldStyle = InputDecoration(
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.0),
+        borderSide: BorderSide(color: primaryColor[300]!)
+    ),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.0),
+        borderSide: BorderSide(color: accentColor[700]!)
+    ),
+);
+
+
+const buttonShadowOffset = 2.0;
+const fatButtonHeight = 80.0;
+const longButtonHeight = 48.0;

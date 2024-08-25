@@ -1,0 +1,45 @@
+import 'dart:convert';
+
+import 'package:muscii/constants/strings.dart';
+import 'package:muscii/login/login_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'login_provider.g.dart';
+
+@riverpod
+class UserAuth extends _$UserAuth {
+
+  @override
+  Future<LoginModel> build() async => LoginModel.fromJson({
+    "isLoggedIn": false,
+    "username": ''
+  });
+
+  Future<void> login(LoginRequestModel loginRequest) async {
+    final response = await http.post(
+      Uri.http(apiBase, APIRoutes.login),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(loginRequest.toJson())
+    );
+
+    final newLoginModel = LoginModel.fromJson(jsonDecode(response.body));
+    state = AsyncData(newLoginModel);
+  }
+
+  Future<void> logout() async {
+    final newLoginModel = LoginModel(isLoggedIn: false, username: '');
+    state = AsyncData(newLoginModel);
+  }
+  
+  Future<void> signUp(LoginRequestModel signUpRequest) async {
+    final response = await http.post(
+      Uri.http(apiBase, APIRoutes.signUp),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(signUpRequest.toJson())
+    );
+
+    LoginModel newLoginModel = LoginModel.fromJson(jsonDecode(response.body));
+    state = AsyncData(newLoginModel);
+  }
+}
