@@ -37,26 +37,25 @@ class HomePage extends ConsumerWidget {
             Text('Games',
               style: headerTextStyle.copyWith(color: primaryColor[950])
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: SetupCard(title: 'Listening',
-                    icon: Icons.music_note,
-                    onPressed: () => Navigator.of(context).push(
+            Container(
+              // color: accentColor[300],
+              child: Row(
+                children: [
+                  SetupCard(title: 'Listening',
+                    icon: Icons.spatial_audio,
+                    onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const GamePage())
                     ),
                   ),
-                ),
-                Expanded(
-                  child: SetupCard(title: 'Reading',
+                  const SizedBox(width: 16),
+                  SetupCard(title: 'Reading',
                     icon: Icons.queue_music,
-                    onPressed: () => Navigator.of(context).push(
+                    onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const GamePage())
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),

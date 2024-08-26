@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
+import 'package:muscii/constants/styles.dart';
 
 class LeaderboardPage extends ConsumerWidget {
 
@@ -11,8 +12,10 @@ class LeaderboardPage extends ConsumerWidget {
     return MusciiScaffold(
       selected: NavigationPages.leaderboard,
       child: Container(
-        padding: const EdgeInsets.all(32.0),
-        child: const Text("leaderboard"),
+        padding: const EdgeInsets.all(24.0),
+        child: Text("Leaderboard",
+          style: headerTextStyle.copyWith(color: primaryColor[950]),
+        ),
       )
     );
   }

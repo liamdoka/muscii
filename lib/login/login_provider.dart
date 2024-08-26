@@ -12,7 +12,7 @@ class UserAuth extends _$UserAuth {
 
   @override
   Future<LoginModel> build() async => LoginModel(
-    isLoggedIn: true,
+    isLoggedIn: false,
     username: ''
   );
 

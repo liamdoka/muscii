@@ -16,9 +16,7 @@ class _AnswerButtonFatState extends State<AnswerButtonFat>
   with SingleTickerProviderStateMixin
 {
   static const clickAnimationDurationMillis = 50;
-
   double _offsetTransformValue = buttonShadowOffset;
-
   late final AnimationController animationController;
 
   @override

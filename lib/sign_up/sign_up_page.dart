@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muscii/components/muscii_header_bar.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:muscii/components/muscii_heading.dart';
 import 'package:muscii/constants/styles.dart';
 import 'package:muscii/home/home_page.dart';
@@ -33,80 +33,75 @@ class SignUpPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor[100],
-        leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.chevron_left)),
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         color: primaryColor[100],
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const MusciiHeading(),
-                const SizedBox(height: 64),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('Create an account',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: accentColor[800]
-                      ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const MusciiHeading(),
+              const SizedBox(height: 64),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('Create an account',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: accentColor[800]
                     ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    TextField(
-                        controller: usernameController,
-                        autocorrect: false,
-                        decoration: textFieldStyle.copyWith(
-                            hintText: 'Username'
-                        )
-                    ),
-                    const SizedBox(height: 24),
-                    TextField(
-                      controller: passwordController,
-                      obscureText: true,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextField(
+                      controller: usernameController,
                       autocorrect: false,
                       decoration: textFieldStyle.copyWith(
-                        hintText: 'Password',
-                      ),
+                          hintText: 'Username'
+                      )
+                  ),
+                  const SizedBox(height: 24),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    autocorrect: false,
+                    decoration: textFieldStyle.copyWith(
+                      hintText: 'Password',
                     ),
-                    const SizedBox(height: 24),
-                    TextField(
-                      controller: passwordConfirmController,
-                      obscureText: true,
-                      autocorrect: false,
-                      decoration: textFieldStyle.copyWith(
-                        hintText: 'Confirm password',
-                      ),
+                  ),
+                  const SizedBox(height: 24),
+                  TextField(
+                    controller: passwordConfirmController,
+                    obscureText: true,
+                    autocorrect: false,
+                    decoration: textFieldStyle.copyWith(
+                      hintText: 'Confirm password',
                     ),
-                    const SizedBox(height: 32.0),
-                    TextButton(
-                        onPressed: () {
-                          if (passwordController.text != passwordConfirmController.text) return;
-                          final signUpRequest = LoginRequestModel(
-                              username: usernameController.text,
-                              password: passwordController.text
-                          );
-            
-                          ref.read(userAuthProvider.notifier).signUp(signUpRequest);
-                        },
-                        style: bigButtonStyle,
-                        child: const Text('Sign Up')
-                    ),
-                    const SizedBox(height: 128),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  const SizedBox(height: 32.0),
+                  TextButton(
+                      onPressed: () {
+                        if (passwordController.text != passwordConfirmController.text) return;
+                        final signUpRequest = LoginRequestModel(
+                            username: usernameController.text,
+                            password: passwordController.text
+                        );
+
+                        ref.read(userAuthProvider.notifier).signUp(signUpRequest);
+                      },
+                      style: bigButtonStyle,
+                      child: const Text('Sign Up')
+                  ),
+                  const SizedBox(height: 128),
+                ],
+              ),
+            ],
           ),
         ),
       ),

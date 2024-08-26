@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muscii/components/muscii_header_bar.dart';
 import 'package:muscii/components/muscii_navigation_bar.dart';
+import 'package:muscii/constants/styles.dart';
 
 enum NavigationPages {
   home,
@@ -22,8 +23,13 @@ class MusciiScaffold extends StatelessWidget {
         bottomNavigationBar: MusciiNavigationBar(
           selected: selected ?? NavigationPages.home,
         ),
-        body: SingleChildScrollView(
-          child: child,
+        body: Container(
+          color: primaryColor[100],
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: child,
+          ),
         )
     );
   }

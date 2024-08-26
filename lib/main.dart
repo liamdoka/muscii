@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:muscii/home/home_page.dart';
 
 void main() {
-  dotenv.load(fileName: '../.env');
+  dotenv.load();
   runApp(const ProviderScope(child: MyApp()));
 }
 
