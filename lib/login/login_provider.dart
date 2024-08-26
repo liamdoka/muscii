@@ -11,10 +11,10 @@ part 'login_provider.g.dart';
 class UserAuth extends _$UserAuth {
 
   @override
-  Future<LoginModel> build() async => LoginModel.fromJson({
-    "isLoggedIn": false,
-    "username": ''
-  });
+  Future<LoginModel> build() async => LoginModel(
+    isLoggedIn: true,
+    username: ''
+  );
 
   Future<void> login(LoginRequestModel loginRequest) async {
     final response = await http.post(
@@ -22,6 +22,7 @@ class UserAuth extends _$UserAuth {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(loginRequest.toJson())
     );
+    ref.keepAlive();
 
     final newLoginModel = LoginModel.fromJson(jsonDecode(response.body));
     state = AsyncData(newLoginModel);
@@ -38,6 +39,7 @@ class UserAuth extends _$UserAuth {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(signUpRequest.toJson())
     );
+    ref.keepAlive();
 
     LoginModel newLoginModel = LoginModel.fromJson(jsonDecode(response.body));
     state = AsyncData(newLoginModel);

@@ -1,4 +1,4 @@
-const apiBase = "10.0.0.66:8000";
+const apiBase = "192.168.7.115:8000";
 
 class APIRoutes {
   static String login = "v1/login";

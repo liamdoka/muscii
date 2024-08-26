@@ -24,10 +24,6 @@ class SetupCard extends StatelessWidget {
         ]
       ),
       margin: const EdgeInsets.all(8.0),
-      constraints: const BoxConstraints(
-        minWidth: 200,
-        minHeight: 200
-      ),
       child: GestureDetector(
         onTap: () {
           if (onPressed != null) {
