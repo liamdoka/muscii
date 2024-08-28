@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 Map<int, Color> primaryColor = {
     50: const Color(0xfff9fafb),
@@ -40,13 +41,17 @@ const headerTextStyle = TextStyle(
 );
 
 final textFieldStyle = InputDecoration(
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+    hintStyle: TextStyle(
+        color: primaryColor[400]
+    ),
     enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16.0),
-        borderSide: BorderSide(color: primaryColor[300]!)
+        borderRadius: BorderRadius.circular(9999.0),
+        borderSide: BorderSide(color: primaryColor[300]!, width: 2),
     ),
     focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16.0),
-        borderSide: BorderSide(color: accentColor[700]!)
+        borderRadius: BorderRadius.circular(9999.0),
+        borderSide: BorderSide(color: accentColor[700]!, width: 2)
     ),
 );
 

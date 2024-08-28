@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
 import 'package:muscii/constants/styles.dart';
 import 'package:muscii/game/game_page.dart';
+import 'package:muscii/game/test_game_page.dart';
 import 'package:muscii/home/setup_card.dart';
 import 'package:muscii/login/login_model.dart';
 import 'package:muscii/login/login_page.dart';
@@ -37,26 +38,24 @@ class HomePage extends ConsumerWidget {
             Text('Games',
               style: headerTextStyle.copyWith(color: primaryColor[950])
             ),
-            Container(
-              // color: accentColor[300],
-              child: Row(
-                children: [
-                  SetupCard(title: 'Listening',
-                    icon: Icons.spatial_audio,
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const GamePage())
-                    ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                SetupCard(title: 'Listening',
+                  icon: Icons.spatial_audio,
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const TestGamePage())
                   ),
-                  const SizedBox(width: 16),
-                  SetupCard(title: 'Reading',
-                    icon: Icons.queue_music,
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const GamePage())
-                    ),
+                ),
+                const SizedBox(width: 16),
+                SetupCard(title: 'Reading',
+                  icon: Icons.queue_music,
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const GamePage())
                   ),
-                ],
-              ),
-            )
+                ),
+              ],
+            ),
           ],
         ),
       )

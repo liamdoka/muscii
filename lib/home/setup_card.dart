@@ -56,10 +56,10 @@ class _SetupCardState extends State<SetupCard> with SingleTickerProviderStateMix
         alignment: Alignment.center,
         children: [
           Container(
-            height: 24 + 92 + 20 + 24 + 8 + 6,
+            height: 24 + 92 + 20 + 24 + 8 + 4,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: primaryColor[400],
+              color: primaryColor[300],
             ),
           ),
           GestureDetector(
@@ -78,7 +78,7 @@ class _SetupCardState extends State<SetupCard> with SingleTickerProviderStateMix
                   borderRadius: BorderRadius.circular(16.0),
                   border: Border.all(
                       width: 2,
-                      color: primaryColor[400]!
+                      color: primaryColor[300]!
                   ),
                 ),
                 child: Column(

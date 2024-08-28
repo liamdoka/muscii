@@ -24,7 +24,7 @@ class MusciiScaffold extends StatelessWidget {
           selected: selected ?? NavigationPages.home,
         ),
         body: Container(
-          color: primaryColor[100],
+          color: primaryColor[50],
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(

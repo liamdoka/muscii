@@ -62,7 +62,7 @@ class _AnswerButtonFatState extends State<AnswerButtonFat>
               height: fatButtonHeight,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
-                color: primaryColor[400],
+                color: primaryColor[300],
               ),
             ),
             GestureDetector(
@@ -81,7 +81,7 @@ class _AnswerButtonFatState extends State<AnswerButtonFat>
                       borderRadius: BorderRadius.circular(16.0),
                       border: Border.all(
                           width: 2,
-                          color: primaryColor[400]!
+                          color: primaryColor[300]!
                       ),
                   ),
                   child: Center(
