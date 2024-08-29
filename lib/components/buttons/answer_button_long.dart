@@ -16,9 +16,7 @@ class _AnswerButtonLongState extends State<AnswerButtonLong>
     with SingleTickerProviderStateMixin
 {
   static const clickAnimationDurationMillis = 50;
-
   double _offsetTransformValue = buttonShadowOffset;
-
   late final AnimationController animationController;
 
   @override
@@ -68,11 +66,11 @@ class _AnswerButtonLongState extends State<AnswerButtonLong>
           ),
           GestureDetector(
             onTapDown: (_) => _shrinkButtonSize(),
+            onTapCancel: () => _restoreButtonSize(),
             onTapUp: (_) {
               widget.onTap?.call();
               _restoreButtonSize();
             },
-            onTapCancel: () => _restoreButtonSize(),
             child: Transform.translate(
               offset: Offset(0, - _offsetTransformValue),
               child: Container(
@@ -86,7 +84,13 @@ class _AnswerButtonLongState extends State<AnswerButtonLong>
                   ),
                 ),
                 child: Center(
-                  child: Text(widget.text),
+                  child: Text(widget.text,
+                    style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor[950]
+                    ),
+                  ),
                 ),
               ),
             ),

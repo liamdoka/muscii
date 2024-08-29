@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muscii/constants/styles.dart';
-import 'package:muscii/game/answer_button_fat.dart';
-import 'package:muscii/game/answer_button_long.dart';
+import 'package:muscii/components/buttons/answer_button_fat.dart';
+import 'package:muscii/components/buttons/answer_button_long.dart';
 
 class GamePage extends StatelessWidget {
 

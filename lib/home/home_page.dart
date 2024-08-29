@@ -41,15 +41,15 @@ class HomePage extends ConsumerWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                SetupCard(title: 'Listening',
-                  icon: Icons.spatial_audio,
+                SetupCard(title: 'Reading',
+                  icon: Icons.queue_music_rounded,
                   onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const TestGamePage())
                   ),
                 ),
                 const SizedBox(width: 16),
-                SetupCard(title: 'Reading',
-                  icon: Icons.queue_music,
+                SetupCard(title: 'Listening',
+                  icon: Icons.spatial_audio_rounded,
                   onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const GamePage())
                   ),

@@ -52,55 +52,57 @@ class _SetupCardState extends State<SetupCard> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: 24 + 92 + 20 + 24 + 8 + 4,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              color: primaryColor[300],
+      child: AspectRatio(
+        aspectRatio: 1/1,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: primaryColor[300],
+              ),
             ),
-          ),
-          GestureDetector(
-            onTapDown: (_) => _shrinkButtonSize(),
-            onTapCancel: () => _restoreButtonSize(),
-            onTapUp: (_) {
-              widget.onTap.call();
-              _restoreButtonSize();
-            },
-            child: Transform.translate(
-              offset: Offset(0, - _offsetTransformValue),
-              child: Container(
-                padding: const EdgeInsets.all(24.0),
-                decoration: BoxDecoration(
-                  color: primaryColor[50],
-                  borderRadius: BorderRadius.circular(16.0),
-                  border: Border.all(
-                      width: 2,
-                      color: primaryColor[300]!
+            GestureDetector(
+              onTapDown: (_) => _shrinkButtonSize(),
+              onTapCancel: () => _restoreButtonSize(),
+              onTapUp: (_) {
+                widget.onTap.call();
+                _restoreButtonSize();
+              },
+              child: Transform.translate(
+                offset: Offset(0, - _offsetTransformValue),
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: primaryColor[50],
+                    borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(
+                        width: 2,
+                        color: primaryColor[300]!
+                    ),
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(widget.title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(widget.title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20
+                        ),
                       ),
-                    ),
-                    Icon(widget.icon ?? Icons.queue_music,
-                      size: 92
-                    ),
-                  ],
+                      Icon(widget.icon ?? Icons.queue_music,
+                        size: 80
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
