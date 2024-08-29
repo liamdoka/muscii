@@ -67,7 +67,7 @@ class _PianoButtonState extends State<PianoButton> with SingleTickerProviderStat
         onTapDown: (_) => _shrinkButtonSize(),
         onTapCancel: () => _restoreButtonSize(),
         onTapUp: (_) {
-          // widget.onTap?.call();
+          widget.onTap?.call();
           print("KEYPRESSED: ${widget.note?.formattedName}");
           _restoreButtonSize();
         },

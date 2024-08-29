@@ -1,50 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/buttons/piano_button.dart';
+import 'package:muscii/game/game_types/reading_game_provider.dart';
+import 'package:muscii/game/models/staff_model.dart';
 import 'package:muscii/utils/notation.dart';
 
-class AnswerButtonPiano extends StatefulWidget {
+class AnswerButtonPiano extends ConsumerStatefulWidget {
 
-  final int correctKey;
+  final NoteModel correctKey;
   final bool isAnnotated;
 
-  const AnswerButtonPiano({super.key, required this.correctKey, this.isAnnotated = false});
+  const AnswerButtonPiano({super.key, required this.correctKey, this.isAnnotated = true});
 
   @override
-  _AnswerButtonPianoState createState() => _AnswerButtonPianoState();
+  ConsumerState<AnswerButtonPiano> createState() => _AnswerButtonPianoState();
 }
 
-class _AnswerButtonPianoState extends State<AnswerButtonPiano> {
+class _AnswerButtonPianoState extends ConsumerState<AnswerButtonPiano> {
+
+  Future<void> _handleNotePressed(bool isCorrect) async {
+    ref.read(readingGameProvider.notifier).submitAnswer(isCorrect);
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    // TODO: piano button width from mediaquery
-
+    // TODO: piano button width from MediaQuery
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PianoButton(note: NoteName.c_sharp, isTopRow: true, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.d_sharp, isTopRow: true, isAnnotated: widget.isAnnotated),
-            const PianoButton(note: null), // empty button
-            PianoButton(note: NoteName.f_sharp, isTopRow: true, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.g_sharp, isTopRow: true, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.a_sharp, isTopRow: true, isAnnotated: widget.isAnnotated),
-          ],
+          children: PianoNotes.topNotes.map(
+            (note) => PianoButton(
+              note: note,
+              isTopRow: true,
+              isAnnotated: widget.isAnnotated,
+              onTap: () => _handleNotePressed(
+                note?.name == widget.correctKey.name.name
+              ),
+            )
+          ).toList()
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PianoButton(note: NoteName.c, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.d, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.e, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.f, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.g, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.a, isAnnotated: widget.isAnnotated),
-            PianoButton(note: NoteName.b, isAnnotated: widget.isAnnotated),
-          ],
+          children: PianoNotes.bottomNotes.map(
+            (note) => PianoButton(
+              note: note,
+              isAnnotated: widget.isAnnotated,
+              onTap: () => _handleNotePressed(
+                  note.name == widget.correctKey.name.name
+              ),
+            )
+          ).toList()
         ),
       ],
     );

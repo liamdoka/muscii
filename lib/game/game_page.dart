@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:muscii/components/buttons/answer_button_piano.dart';
 import 'package:muscii/constants/styles.dart';
-import 'package:muscii/components/buttons/answer_button_fat.dart';
-import 'package:muscii/components/buttons/answer_button_long.dart';
+import 'package:muscii/game/game_types/reading_game_provider.dart';
 
-class GamePage extends StatelessWidget {
+class GamePage extends ConsumerWidget {
 
   const GamePage({ super.key });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final gameModel = ref.watch(readingGameProvider).value;
+    final currentQuestion = gameModel?.questions.first;
+
+    final maxWidth = MediaQuery.of(context).size.width;
+
+    final Widget svg = currentQuestion != null
+        ? SvgPicture.string(
+            currentQuestion.staff.toSvg(),
+            width: maxWidth,
+            height: maxWidth,
+            colorFilter: ColorFilter.mode(
+                primaryColor[700]!,
+                BlendMode.srcIn
+            ),
+          )
+        : const SizedBox.shrink();
 
     return Scaffold(
       appBar: AppBar(
@@ -18,48 +37,36 @@ class GamePage extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
             icon: const Icon(Icons.close, size: 24)
         ),
+        actions: [
+          IconButton(onPressed: () {} , icon: const Icon(Icons.volume_off))
+        ],
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-        color: primaryColor[50],
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text('HERE IT IS'),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                AnswerButtonLong(text: '1'),
-                AnswerButtonLong(text: '2'),
-                AnswerButtonLong(text: '3'),
-                AnswerButtonLong(text: '4'),
-              ],
-            ),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AnswerButtonFat(text: 'A'),
-                    AnswerButtonFat(text: 'B')
-                  ],
+            if (currentQuestion != null)
+              Text(currentQuestion.prompt,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: accentColor[700],
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AnswerButtonFat(text: 'C'),
-                    AnswerButtonFat(text: 'D')
-                  ],
-                )
-              ],
+              ),
+            Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: svg
             ),
+            if (currentQuestion != null)
+              AnswerButtonPiano(correctKey: currentQuestion.staff.notes.first, isAnnotated: true),
+            const Spacer(),
             Text('help',
               style: TextStyle(
-                color: primaryColor[500],
-                decoration: TextDecoration.underline
+                  fontSize: 16,
+                  color: primaryColor[500],
+                  decoration: TextDecoration.underline
               ),
             )
           ],

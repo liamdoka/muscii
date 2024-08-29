@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:muscii/game/models/staff_model.dart';
+import 'package:muscii/utils/notation.dart';
 
 part 'reading_game_model.g.dart';
 part 'reading_game_model.freezed.dart';
@@ -19,8 +21,8 @@ class ReadingGameModel with _$ReadingGameModel {
 class QuestionModel with _$QuestionModel {
   const factory QuestionModel({
     required String prompt,
-    required int answer,
-    String? svg,
+    required StaffModel staff,
+    bool? correct,
     List<int>? options
   }) = _QuestionModel;
 

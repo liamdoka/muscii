@@ -27,8 +27,8 @@ Map<String, dynamic> _$$ReadingGameModelImplToJson(
 _$QuestionModelImpl _$$QuestionModelImplFromJson(Map<String, dynamic> json) =>
     _$QuestionModelImpl(
       prompt: json['prompt'] as String,
-      answer: (json['answer'] as num).toInt(),
-      svg: json['svg'] as String?,
+      staff: StaffModel.fromJson(json['staff'] as Map<String, dynamic>),
+      correct: json['correct'] as bool?,
       options: (json['options'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
@@ -37,7 +37,7 @@ _$QuestionModelImpl _$$QuestionModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$QuestionModelImplToJson(_$QuestionModelImpl instance) =>
     <String, dynamic>{
       'prompt': instance.prompt,
-      'answer': instance.answer,
-      'svg': instance.svg,
+      'staff': instance.staff,
+      'correct': instance.correct,
       'options': instance.options,
     };

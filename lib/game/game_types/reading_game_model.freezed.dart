@@ -217,8 +217,8 @@ QuestionModel _$QuestionModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$QuestionModel {
   String get prompt => throw _privateConstructorUsedError;
-  int get answer => throw _privateConstructorUsedError;
-  String? get svg => throw _privateConstructorUsedError;
+  StaffModel get staff => throw _privateConstructorUsedError;
+  bool? get correct => throw _privateConstructorUsedError;
   List<int>? get options => throw _privateConstructorUsedError;
 
   /// Serializes this QuestionModel to a JSON map.
@@ -237,7 +237,10 @@ abstract class $QuestionModelCopyWith<$Res> {
           QuestionModel value, $Res Function(QuestionModel) then) =
       _$QuestionModelCopyWithImpl<$Res, QuestionModel>;
   @useResult
-  $Res call({String prompt, int answer, String? svg, List<int>? options});
+  $Res call(
+      {String prompt, StaffModel staff, bool? correct, List<int>? options});
+
+  $StaffModelCopyWith<$Res> get staff;
 }
 
 /// @nodoc
@@ -256,8 +259,8 @@ class _$QuestionModelCopyWithImpl<$Res, $Val extends QuestionModel>
   @override
   $Res call({
     Object? prompt = null,
-    Object? answer = null,
-    Object? svg = freezed,
+    Object? staff = null,
+    Object? correct = freezed,
     Object? options = freezed,
   }) {
     return _then(_value.copyWith(
@@ -265,19 +268,29 @@ class _$QuestionModelCopyWithImpl<$Res, $Val extends QuestionModel>
           ? _value.prompt
           : prompt // ignore: cast_nullable_to_non_nullable
               as String,
-      answer: null == answer
-          ? _value.answer
-          : answer // ignore: cast_nullable_to_non_nullable
-              as int,
-      svg: freezed == svg
-          ? _value.svg
-          : svg // ignore: cast_nullable_to_non_nullable
-              as String?,
+      staff: null == staff
+          ? _value.staff
+          : staff // ignore: cast_nullable_to_non_nullable
+              as StaffModel,
+      correct: freezed == correct
+          ? _value.correct
+          : correct // ignore: cast_nullable_to_non_nullable
+              as bool?,
       options: freezed == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
               as List<int>?,
     ) as $Val);
+  }
+
+  /// Create a copy of QuestionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $StaffModelCopyWith<$Res> get staff {
+    return $StaffModelCopyWith<$Res>(_value.staff, (value) {
+      return _then(_value.copyWith(staff: value) as $Val);
+    });
   }
 }
 
@@ -289,7 +302,11 @@ abstract class _$$QuestionModelImplCopyWith<$Res>
       __$$QuestionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String prompt, int answer, String? svg, List<int>? options});
+  $Res call(
+      {String prompt, StaffModel staff, bool? correct, List<int>? options});
+
+  @override
+  $StaffModelCopyWith<$Res> get staff;
 }
 
 /// @nodoc
@@ -306,8 +323,8 @@ class __$$QuestionModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? prompt = null,
-    Object? answer = null,
-    Object? svg = freezed,
+    Object? staff = null,
+    Object? correct = freezed,
     Object? options = freezed,
   }) {
     return _then(_$QuestionModelImpl(
@@ -315,14 +332,14 @@ class __$$QuestionModelImplCopyWithImpl<$Res>
           ? _value.prompt
           : prompt // ignore: cast_nullable_to_non_nullable
               as String,
-      answer: null == answer
-          ? _value.answer
-          : answer // ignore: cast_nullable_to_non_nullable
-              as int,
-      svg: freezed == svg
-          ? _value.svg
-          : svg // ignore: cast_nullable_to_non_nullable
-              as String?,
+      staff: null == staff
+          ? _value.staff
+          : staff // ignore: cast_nullable_to_non_nullable
+              as StaffModel,
+      correct: freezed == correct
+          ? _value.correct
+          : correct // ignore: cast_nullable_to_non_nullable
+              as bool?,
       options: freezed == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
@@ -336,8 +353,8 @@ class __$$QuestionModelImplCopyWithImpl<$Res>
 class _$QuestionModelImpl implements _QuestionModel {
   const _$QuestionModelImpl(
       {required this.prompt,
-      required this.answer,
-      this.svg,
+      required this.staff,
+      this.correct,
       final List<int>? options})
       : _options = options;
 
@@ -347,9 +364,9 @@ class _$QuestionModelImpl implements _QuestionModel {
   @override
   final String prompt;
   @override
-  final int answer;
+  final StaffModel staff;
   @override
-  final String? svg;
+  final bool? correct;
   final List<int>? _options;
   @override
   List<int>? get options {
@@ -362,7 +379,7 @@ class _$QuestionModelImpl implements _QuestionModel {
 
   @override
   String toString() {
-    return 'QuestionModel(prompt: $prompt, answer: $answer, svg: $svg, options: $options)';
+    return 'QuestionModel(prompt: $prompt, staff: $staff, correct: $correct, options: $options)';
   }
 
   @override
@@ -371,14 +388,14 @@ class _$QuestionModelImpl implements _QuestionModel {
         (other.runtimeType == runtimeType &&
             other is _$QuestionModelImpl &&
             (identical(other.prompt, prompt) || other.prompt == prompt) &&
-            (identical(other.answer, answer) || other.answer == answer) &&
-            (identical(other.svg, svg) || other.svg == svg) &&
+            (identical(other.staff, staff) || other.staff == staff) &&
+            (identical(other.correct, correct) || other.correct == correct) &&
             const DeepCollectionEquality().equals(other._options, _options));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, prompt, answer, svg,
+  int get hashCode => Object.hash(runtimeType, prompt, staff, correct,
       const DeepCollectionEquality().hash(_options));
 
   /// Create a copy of QuestionModel
@@ -400,8 +417,8 @@ class _$QuestionModelImpl implements _QuestionModel {
 abstract class _QuestionModel implements QuestionModel {
   const factory _QuestionModel(
       {required final String prompt,
-      required final int answer,
-      final String? svg,
+      required final StaffModel staff,
+      final bool? correct,
       final List<int>? options}) = _$QuestionModelImpl;
 
   factory _QuestionModel.fromJson(Map<String, dynamic> json) =
@@ -410,9 +427,9 @@ abstract class _QuestionModel implements QuestionModel {
   @override
   String get prompt;
   @override
-  int get answer;
+  StaffModel get staff;
   @override
-  String? get svg;
+  bool? get correct;
   @override
   List<int>? get options;
 

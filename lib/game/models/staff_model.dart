@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:muscii/constants/svg_strings.dart';
 import 'package:muscii/utils/notation.dart';
 
 part 'staff_model.freezed.dart';
@@ -19,7 +20,13 @@ class StaffModel with _$StaffModel {
       _$StaffModelFromJson(json);
 
   String toSvg() {
-    return "";
+    if (notes.isEmpty) {
+      // todo handle errors way better
+      print("no notes :)");
+      return "";
+    }
+
+    return buildStaff(offset: mapNoteToOffset(notes.first, musicKey));
   }
 }
 

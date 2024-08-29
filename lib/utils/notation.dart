@@ -25,3 +25,24 @@ enum Clef {
   treble,
   bass
 }
+
+class PianoNotes {
+  static List<NoteName?> topNotes = [
+    NoteName.c_sharp,
+    NoteName.d_sharp,
+    null,
+    NoteName.f_sharp,
+    NoteName.g_sharp,
+    NoteName.a_sharp,
+  ];
+
+  static List<NoteName> bottomNotes = [
+    NoteName.c,
+    NoteName.d,
+    NoteName.e,
+    NoteName.f,
+    NoteName.g,
+    NoteName.a,
+    NoteName.b,
+  ];
+}

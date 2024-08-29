@@ -21,7 +21,7 @@ class TestGamePage extends StatelessWidget {
       width: maxWidth,
       height: maxWidth,
       colorFilter: ColorFilter.mode(
-        primaryColor[800]!,
+        primaryColor[700]!,
         BlendMode.srcIn
       ),
     );
@@ -47,7 +47,7 @@ class TestGamePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: svg
             ),
-            const AnswerButtonPiano(correctKey: 4, isAnnotated: true),
+            const AnswerButtonPiano(correctKey: NoteModel(name: NoteName.c, octave: 4), isAnnotated: true),
             const Spacer(),
             Text('help',
               style: TextStyle(

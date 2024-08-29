@@ -6,7 +6,7 @@ part of 'reading_game_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$readingGameHash() => r'757868d03bc1e5bcc1b8e60183ae30d77ec341f5';
+String _$readingGameHash() => r'2d6a4ce3bb49aded871af362bab932b73ac887af';
 
 /// See also [ReadingGame].
 @ProviderFor(ReadingGame)
