@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_provider.dart';
+part of 'auth_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userAuthHash() => r'0fd76f395431433edd524a85f0379659b92ab7b9';
+String _$musciiAuthHash() => r'cb8843123fdde2fdb521625bf6a4cc3a8348c448';
 
-/// See also [UserAuth].
-@ProviderFor(UserAuth)
-final userAuthProvider =
-    AutoDisposeAsyncNotifierProvider<UserAuth, LoginModel>.internal(
-  UserAuth.new,
-  name: r'userAuthProvider',
+/// See also [MusciiAuth].
+@ProviderFor(MusciiAuth)
+final musciiAuthProvider =
+    AutoDisposeAsyncNotifierProvider<MusciiAuth, AuthModel>.internal(
+  MusciiAuth.new,
+  name: r'musciiAuthProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userAuthHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$musciiAuthHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UserAuth = AutoDisposeAsyncNotifier<LoginModel>;
+typedef _$MusciiAuth = AutoDisposeAsyncNotifier<AuthModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

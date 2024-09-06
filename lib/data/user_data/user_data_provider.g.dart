@@ -1,0 +1,25 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user_data_provider.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$userDataHash() => r'b40438e7e7a09bd273db2d15bc69240b882b67fe';
+
+/// See also [UserData].
+@ProviderFor(UserData)
+final userDataProvider =
+    AutoDisposeAsyncNotifierProvider<UserData, UserDataModel>.internal(
+  UserData.new,
+  name: r'userDataProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userDataHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UserData = AutoDisposeAsyncNotifier<UserDataModel>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

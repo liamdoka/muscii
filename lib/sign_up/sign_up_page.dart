@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:muscii/components/muscii_heading.dart';
 import 'package:muscii/constants/styles.dart';
+import 'package:muscii/data/auth/auth_model.dart';
+import 'package:muscii/data/auth/auth_provider.dart';
 import 'package:muscii/home/home_page.dart';
-import 'package:muscii/login/login_model.dart';
-import 'package:muscii/login/login_provider.dart';
 
 class SignUpPage extends ConsumerWidget {
 
@@ -18,25 +17,23 @@ class SignUpPage extends ConsumerWidget {
     final passwordController = TextEditingController();
     final passwordConfirmController = TextEditingController();
 
-    final AsyncValue<LoginModel> auth = ref.watch(userAuthProvider);
-
+    final auth = ref.watch(musciiAuthProvider);
+    final authNotifier = ref.watch(musciiAuthProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (auth.hasValue) {
-        if (auth.value?.isLoggedIn == true){
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage())
-          );
-        }
+      if (auth.hasValue && auth.value!.isAuthenticated) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage())
+        );
+      } else if (auth.hasValue && auth.value!.needsRefresh) {
+        authNotifier.refresh();
       }
     });
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor[100],
-      ),
+      appBar: AppBar(),
       body: Container(
+        color: primaryColor[50],
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        color: primaryColor[100],
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -88,12 +85,12 @@ class SignUpPage extends ConsumerWidget {
                   TextButton(
                       onPressed: () {
                         if (passwordController.text != passwordConfirmController.text) return;
-                        final signUpRequest = LoginRequestModel(
+                        final signUpRequest = AuthRequestModel(
                             username: usernameController.text,
                             password: passwordController.text
                         );
 
-                        ref.read(userAuthProvider.notifier).signUp(signUpRequest);
+                        authNotifier.register(signUpRequest);
                       },
                       style: bigButtonStyle,
                       child: const Text('Sign Up')

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_heading.dart';
 import 'package:muscii/constants/styles.dart';
+import 'package:muscii/data/auth/auth_model.dart';
+import 'package:muscii/data/auth/auth_provider.dart';
+import 'package:muscii/data/user_data/user_data_model.dart';
+import 'package:muscii/data/user_data/user_data_provider.dart';
 import 'package:muscii/home/home_page.dart';
-import 'package:muscii/login/login_model.dart';
-import 'package:muscii/login/login_provider.dart';
 import 'package:muscii/sign_up/sign_up_page.dart';
 
 class LoginPage extends ConsumerWidget {
@@ -13,13 +15,16 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<LoginModel> auth = ref.watch(userAuthProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (auth.hasValue) {
-        if (auth.value?.isLoggedIn == true){
+
+    final authNotifier = ref.watch(musciiAuthProvider.notifier);
+    ref.listen(musciiAuthProvider, (_, currentAuth) {
+      if (currentAuth.hasValue && !currentAuth.isLoading) {
+        if (currentAuth.value!.isAuthenticated) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const HomePage())
           );
+        } else if (currentAuth.value!.needsRefresh) {
+          authNotifier.refresh();
         }
       }
     });
@@ -27,17 +32,18 @@ class LoginPage extends ConsumerWidget {
     final usernameController = TextEditingController();
     final passwordController = TextEditingController();
 
-    if (auth.hasValue && auth.value!.username.isNotEmpty) {
-      usernameController.text = auth.value!.username;
+    final AsyncValue<UserDataModel> userData = ref.watch(userDataProvider);
+    if (userData.hasValue && userData.value!.username.isNotEmpty) {
+      usernameController.text = userData.value!.username;
     }
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor[100],
+        backgroundColor: primaryColor[50],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        color: primaryColor[100],
+        color: primaryColor[50],
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -93,14 +99,12 @@ class LoginPage extends ConsumerWidget {
                   const SizedBox(height: 32.0),
                   TextButton(
                     onPressed: () {
-                      final loginRequest = LoginRequestModel(
+                      final loginRequest = AuthRequestModel(
                         username: usernameController.text,
                         password: passwordController.text
                       );
 
-                      ref.read(userAuthProvider.notifier).login(
-                        loginRequest
-                      );
+                      authNotifier.login(loginRequest);
                     },
                     style: bigButtonStyle,
                     child: const Text('Log In')

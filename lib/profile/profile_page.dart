@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
 import 'package:muscii/constants/styles.dart';
+import 'package:muscii/data/auth/auth_provider.dart';
+import 'package:muscii/data/user_data/user_data_model.dart';
+import 'package:muscii/data/user_data/user_data_provider.dart';
 import 'package:muscii/login/login_page.dart';
-import 'package:muscii/login/login_provider.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final userData = ref.watch(userDataProvider).value;
+
     return MusciiScaffold(
         selected: NavigationPages.profile,
         child: Column(
@@ -18,17 +23,21 @@ class ProfilePage extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildProfileArea(fullName: "Firstname Lastname", username: "username"),
+                _buildProfileArea(userData),
                 _buildMenuButton(
                   onTap: () => print("GoTo: Stats page"),
-                  icon: const Icon(Icons.insert_chart),
+                  icon: const Icon(Icons.insert_chart_rounded),
                   title: "Stats"
                 ),
+                _buildMenuButton(
+                  onTap: (){},
+                  icon: const Icon(Icons.settings_rounded),
+                  title: "Settings")
               ],
             ),
             TextButton(
               onPressed: () {
-                ref.read(userAuthProvider.notifier).logout();
+                ref.read(musciiAuthProvider.notifier).logout();
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const LoginPage())
                 );
@@ -52,7 +61,7 @@ class ProfilePage extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
         decoration: BoxDecoration(
             color: Colors.transparent,
-            border: Border.all(color: primaryColor[400]!)
+            border: Border.all(color: primaryColor[400]!, strokeAlign: BorderSide.strokeAlignCenter)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,14 +78,15 @@ class ProfilePage extends ConsumerWidget {
                 ),
               ],
             ),
-            const Icon(Icons.chevron_right)
+            const Icon(Icons.chevron_right_rounded)
           ],
         ),
       ),
     );
   }
 
-  Widget _buildProfileArea({required String fullName, required String username}) {
+  Widget _buildProfileArea(UserDataModel? userData) {
+
     return Container(
       padding: const EdgeInsets.all(32.0),
       child: Column(
@@ -101,14 +111,14 @@ class ProfilePage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(fullName,
+                      Text(userData?.displayName ?? userData?.username ?? '',
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 24,
                             fontWeight: FontWeight.w500,
                             color: primaryColor[950]
                         ),
                       ),
-                      Text("@$username",
+                      Text("@${userData?.username ?? ''}",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16,
@@ -125,9 +135,13 @@ class ProfilePage extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildStatBlock(title: "Streak", value: "15", icon: const Icon(Icons.local_fire_department)),
-              _buildStatBlock(title: "Games played", value: "32"),
-              _buildStatBlock(title: "Average", value: "82%")
+              _buildStatBlock(title: "Streak", value: userData?.streak.toString() ?? '0', icon: const Icon(Icons.local_fire_department, color: Colors.deepOrange)),
+              _buildStatBlock(title: "Games played", value: userData?.gamesPlayed.toString() ?? '0'),
+              _buildStatBlock(title: "Accuracy",
+                value: userData != null
+                  ? "${(userData.correctAnswers / (userData.correctAnswers + (userData.incorrectAnswers == 0 ? 1 : userData.incorrectAnswers)))}%"
+                  : '0%'
+              )
             ],
           ),
         ],
