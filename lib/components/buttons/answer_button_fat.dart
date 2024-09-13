@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muscii/components/muscii_compress_button.dart';
 import 'package:muscii/constants/styles.dart';
 
 class AnswerButtonFat extends StatefulWidget {
@@ -10,48 +11,11 @@ class AnswerButtonFat extends StatefulWidget {
   const AnswerButtonFat({ super.key, required this.text, this.isCorrect, this.onTap });
 
   @override
-  _AnswerButtonFatState createState() => _AnswerButtonFatState();
+  State<AnswerButtonFat> createState() => _AnswerButtonFatState();
 }
 
-class _AnswerButtonFatState extends State<AnswerButtonFat>
-  with SingleTickerProviderStateMixin
-{
-  static const clickAnimationDurationMillis = 50;
-  double _offsetTransformValue = buttonShadowOffset;
-  late final AnimationController animationController;
-
+class _AnswerButtonFatState extends MusciiCompressButton<AnswerButtonFat> {
   bool isRevealed = false;
-
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: clickAnimationDurationMillis),
-      lowerBound: 0.0,
-      upperBound: buttonShadowOffset,
-    )..addListener(() {
-      setState(() => _offsetTransformValue = buttonShadowOffset - animationController.value);
-    });
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
-  void _shrinkButtonSize() {
-      animationController.forward();
-    }
-
-  void _restoreButtonSize() async {
-    if (animationController.isCompleted) {
-      animationController.reverse();
-    } else {
-      animationController.forward().whenComplete(animationController.reverse);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +33,15 @@ class _AnswerButtonFatState extends State<AnswerButtonFat>
               ),
             ),
             GestureDetector(
-              onTapDown: (_) => _shrinkButtonSize(),
+              onTapDown: (_) => shrinkButtonSize(),
               onTapUp: (_) {
                 widget.onTap?.call();
                 isRevealed = true;
-                _restoreButtonSize();
+                restoreButtonSize();
               },
-              onTapCancel: () => _restoreButtonSize(),
+              onTapCancel: () => restoreButtonSize(),
               child: Transform.translate(
-                offset: Offset(0, - _offsetTransformValue),
+                offset: Offset(0, - offsetTransformValue),
                 child: Container(
                   height: fatButtonHeight,
                   decoration: BoxDecoration(
