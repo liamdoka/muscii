@@ -1,10 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
 import 'package:muscii/constants/styles.dart';
-import 'package:muscii/home/home_page.dart';
-import 'package:muscii/leaderboard/leaderboard_page.dart';
-import 'package:muscii/profile/profile_page.dart';
+import 'package:muscii/router/app_router.gr.dart';
 
 class MusciiNavigationBar extends ConsumerWidget {
 
@@ -13,8 +12,11 @@ class MusciiNavigationBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    const navigationBarHeight = 64.0;
+
     return Container(
-      height: 64,
+      height: navigationBarHeight,
       decoration: BoxDecoration(
         border: Border(top: BorderSide(color: primaryColor[200]!)),
       ),
@@ -23,37 +25,19 @@ class MusciiNavigationBar extends ConsumerWidget {
         children: [
           MusciiNavigationButton(
             onPressed: () =>               
-              Navigator.of(context).pushReplacement(
-                PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => const HomePage(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                )
-            ),
+              context.replaceRoute(const HomeRoute()),
             iconData: Icons.home,
             isSelected: selected == NavigationPages.home,
           ),
           MusciiNavigationButton(
             onPressed: () =>
-              Navigator.of(context).pushReplacement(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => const LeaderboardPage(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero
-                )
-              ),
+              context.replaceRoute(const LeaderboardRoute()),
             iconData: Icons.leaderboard,
             isSelected: selected == NavigationPages.leaderboard,
           ),
           MusciiNavigationButton(
             onPressed: () =>
-              Navigator.of(context).pushReplacement(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => const ProfilePage(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero
-                )
-              ),
+              context.replaceRoute(const ProfileRoute()),
             iconData: Icons.person,
             isSelected: selected == NavigationPages.profile,
           ),

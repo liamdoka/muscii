@@ -1,4 +1,4 @@
-import 'package:muscii/game/models/staff_model.dart';
+import 'package:muscii/data/staves/staff_model.dart';
 import 'package:muscii/utils/notation.dart';
 
 String buildGuideline(num offset) {
@@ -28,11 +28,6 @@ String buildStaff({num offset = 6.5}) {
 
   return """
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="20.00px" height="20.00px" viewBox="0 0 12 12">
-    <style type="text/css">
-    <![CDATA[
-    tspan { white-space: pre; }
-    ]]>
-    </style>
     <g transform="translate(0, 8)">
     <line stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1000" stroke="currentColor" x1="0.0000" y1="0" x2="12.0000" y2="0"/>
     </g>
@@ -67,15 +62,15 @@ String buildStaff({num offset = 6.5}) {
   """;
 }
 
-double mapNoteToOffset(NoteModel note, KeyName musicKey) {
+double mapNoteToOffset(NoteModel note, KeySignature keySignature) {
   // hey so this is cursed.
   final base = ((note.octave - 4) * - 3.5) + 9;
   const values = [0,2,4,5,7,9,11];
 
   final newValues = values.map(
-    (number) => (number + note.name.index > 11)
-        ? number + musicKey.index - 12
-        : number + musicKey.index
+    (number) => (number + keySignature.index > 11)
+        ? number + keySignature.index - 12
+        : number + keySignature.index
   ).toList();
 
   final realIndex = newValues.indexOf(note.name.index);

@@ -12,8 +12,6 @@ part 'user_data_provider.g.dart';
 class UserData extends _$UserData {
 
   @override
-
-  // TODO ensure that the username isnt null
   Future<UserDataModel> build() async => UserDataModel(
     username: "",
     displayName: "",
@@ -36,7 +34,7 @@ class UserData extends _$UserData {
       await authProvider.refresh();
     }
 
-    if (!state.hasValue) return;
+    if (state.hasValue == false) return;
     final newState = state.value!.copyWith(
       xp: state.value!.xp + amount
     );
@@ -56,7 +54,6 @@ class UserData extends _$UserData {
 
     state = AsyncData(newState);
   }
-
 
   Future<void> sync() async {
     final authModel = ref.watch(musciiAuthProvider).value;

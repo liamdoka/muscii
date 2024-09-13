@@ -1,8 +1,10 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
 import 'package:muscii/constants/styles.dart';
 
+@RoutePage()
 class LeaderboardPage extends ConsumerWidget {
 
   const LeaderboardPage({super.key});

@@ -26,7 +26,7 @@ class APIService {
 
 
 class APIRoutes {
-  static const baseURL = "192.168.7.113:8000";
+  static const baseURL = "192.168.7.113:8000"; // home: 10.0.0.66, office: 192.168.7.113
   static const _prefix = "api/v1";
 
   // AUTH
@@ -37,4 +37,11 @@ class APIRoutes {
 
   // USERS
   static String getUser (String id) => "$_prefix/users/$id";
+
+  // STAFF
+  static String testStaff = "$_prefix/staves/default";
+  static String randomStaff = "$_prefix/staves/random";
+
+  // COMPLETED GAMES
+  static String addCompletedGame = "$_prefix/games/completed";
 }

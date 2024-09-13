@@ -14,6 +14,7 @@ _$ReadingGameModelImpl _$$ReadingGameModelImplFromJson(
       questions: (json['questions'] as List<dynamic>)
           .map((e) => QuestionModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      startTime: (json['startTime'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ReadingGameModelImplToJson(
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$ReadingGameModelImplToJson(
       'id': instance.id,
       'elo': instance.elo,
       'questions': instance.questions,
+      'startTime': instance.startTime,
     };
 
 _$QuestionModelImpl _$$QuestionModelImplFromJson(Map<String, dynamic> json) =>
@@ -29,6 +31,7 @@ _$QuestionModelImpl _$$QuestionModelImplFromJson(Map<String, dynamic> json) =>
       prompt: json['prompt'] as String,
       staff: StaffModel.fromJson(json['staff'] as Map<String, dynamic>),
       correct: json['correct'] as bool?,
+      attempts: (json['attempts'] as num?)?.toInt() ?? 0,
       options: (json['options'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
@@ -39,5 +42,24 @@ Map<String, dynamic> _$$QuestionModelImplToJson(_$QuestionModelImpl instance) =>
       'prompt': instance.prompt,
       'staff': instance.staff,
       'correct': instance.correct,
+      'attempts': instance.attempts,
       'options': instance.options,
+    };
+
+_$CompletedGameModelImpl _$$CompletedGameModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CompletedGameModelImpl(
+      userId: (json['userId'] as num?)?.toInt(),
+      timeTaken: (json['timeTaken'] as num).toInt(),
+      correctAnswers: (json['correctAnswers'] as num).toInt(),
+      incorrectAnswers: (json['incorrectAnswers'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$CompletedGameModelImplToJson(
+        _$CompletedGameModelImpl instance) =>
+    <String, dynamic>{
+      'userId': instance.userId,
+      'timeTaken': instance.timeTaken,
+      'correctAnswers': instance.correctAnswers,
+      'incorrectAnswers': instance.incorrectAnswers,
     };

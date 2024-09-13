@@ -1,3 +1,5 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
@@ -5,8 +7,9 @@ import 'package:muscii/constants/styles.dart';
 import 'package:muscii/data/auth/auth_provider.dart';
 import 'package:muscii/data/user_data/user_data_model.dart';
 import 'package:muscii/data/user_data/user_data_provider.dart';
-import 'package:muscii/login/login_page.dart';
+import 'package:muscii/router/app_router.gr.dart';
 
+@RoutePage()
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
@@ -38,9 +41,7 @@ class ProfilePage extends ConsumerWidget {
             TextButton(
               onPressed: () {
                 ref.read(musciiAuthProvider.notifier).logout();
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const LoginPage())
-                );
+                context.replaceRoute(const LoginRoute());
               },
               child: const Text("Log out",
                 style: TextStyle(
@@ -61,7 +62,7 @@ class ProfilePage extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
         decoration: BoxDecoration(
             color: Colors.transparent,
-            border: Border.all(color: primaryColor[400]!, strokeAlign: BorderSide.strokeAlignCenter)
+            border: Border.all(color: primaryColor[300]!, strokeAlign: BorderSide.strokeAlignCenter)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,10 +137,10 @@ class ProfilePage extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildStatBlock(title: "Streak", value: userData?.streak.toString() ?? '0', icon: const Icon(Icons.local_fire_department, color: Colors.deepOrange)),
-              _buildStatBlock(title: "Games played", value: userData?.gamesPlayed.toString() ?? '0'),
+              _buildStatBlock(title: "XP", value: userData?.xp.toString() ?? '0'),
               _buildStatBlock(title: "Accuracy",
                 value: userData != null
-                  ? "${(userData.correctAnswers / (userData.correctAnswers + (userData.incorrectAnswers == 0 ? 1 : userData.incorrectAnswers)))}%"
+                  ? "${(userData.correctAnswers / (userData.correctAnswers + (userData.incorrectAnswers == 0 ? 1 : userData.incorrectAnswers)) * 100).toStringAsFixed(0)}%"
                   : '0%'
               )
             ],
@@ -152,18 +153,23 @@ class ProfilePage extends ConsumerWidget {
 
   Widget _buildStatBlock({required String title, required String value, Icon? icon}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      // decoration: BoxDecoration(
+      //   border: Border.all(color: primaryColor[300]!, width: 2),
+      //   borderRadius: BorderRadius.circular(16.0)
+      // ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
         children: [
           Text(title,
-            style: const TextStyle(
+            style: TextStyle(
+              color: accentColor[800]!,
               fontWeight: FontWeight.w700
             ),
           ),
           const SizedBox(height: 4.0),
           Row(
             children: [
-              if (icon != null) icon,
+              icon ?? const SizedBox.shrink(),
               Text(value,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,

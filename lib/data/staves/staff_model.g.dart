@@ -8,27 +8,32 @@ part of 'staff_model.dart';
 
 _$StaffModelImpl _$$StaffModelImplFromJson(Map<String, dynamic> json) =>
     _$StaffModelImpl(
-      musicKey: $enumDecodeNullable(_$KeyNameEnumMap, json['musicKey']) ??
-          KeyName.c_maj,
+      keySignature:
+          $enumDecodeNullable(_$KeySignatureEnumMap, json['keySignature']) ??
+              KeySignature.c_maj,
       notes: (json['notes'] as List<dynamic>?)
-              ?.map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => (e as List<dynamic>)
+                  .map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
+                  .toList())
               .toList() ??
           const [],
-      clef: $enumDecodeNullable(_$ClefEnumMap, json['clef']),
+      clef: $enumDecodeNullable(_$ClefEnumMap, json['clef']) ?? Clef.treble,
       timeSignature: json['timeSignature'] as String?,
     );
 
 Map<String, dynamic> _$$StaffModelImplToJson(_$StaffModelImpl instance) =>
     <String, dynamic>{
-      'musicKey': _$KeyNameEnumMap[instance.musicKey]!,
+      'keySignature': _$KeySignatureEnumMap[instance.keySignature]!,
       'notes': instance.notes,
       'clef': _$ClefEnumMap[instance.clef],
       'timeSignature': instance.timeSignature,
     };
 
-const _$KeyNameEnumMap = {
-  KeyName.c_maj: 'c_maj',
-  KeyName.c_sharp_maj: 'c_sharp_maj',
+const _$KeySignatureEnumMap = {
+  KeySignature.c_maj: 'c_maj',
+  KeySignature.c_min: 'c_min',
+  KeySignature.c_sharp_maj: 'c_sharp_maj',
+  KeySignature.c_sharp_min: 'c_sharp_min',
 };
 
 const _$ClefEnumMap = {
@@ -39,7 +44,7 @@ const _$ClefEnumMap = {
 _$NoteModelImpl _$$NoteModelImplFromJson(Map<String, dynamic> json) =>
     _$NoteModelImpl(
       name: $enumDecode(_$NoteNameEnumMap, json['name']),
-      octave: (json['octave'] as num).toInt(),
+      octave: (json['octave'] as num?)?.toInt() ?? 5,
       duration: (json['duration'] as num?)?.toDouble() ?? 1.0,
     );
 

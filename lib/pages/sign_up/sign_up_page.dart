@@ -1,11 +1,14 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_heading.dart';
 import 'package:muscii/constants/styles.dart';
 import 'package:muscii/data/auth/auth_model.dart';
 import 'package:muscii/data/auth/auth_provider.dart';
-import 'package:muscii/home/home_page.dart';
+import 'package:muscii/router/app_router.gr.dart';
 
+@RoutePage()
 class SignUpPage extends ConsumerWidget {
 
   const SignUpPage({super.key});
@@ -21,9 +24,7 @@ class SignUpPage extends ConsumerWidget {
     final authNotifier = ref.watch(musciiAuthProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (auth.hasValue && auth.value!.isAuthenticated) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage())
-        );
+        context.replaceRoute(const HomeRoute());
       } else if (auth.hasValue && auth.value!.needsRefresh) {
         authNotifier.refresh();
       }

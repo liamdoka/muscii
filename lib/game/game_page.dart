@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,6 +6,7 @@ import 'package:muscii/components/buttons/answer_button_piano.dart';
 import 'package:muscii/constants/styles.dart';
 import 'package:muscii/game/game_types/reading_game_provider.dart';
 
+@RoutePage()
 class GamePage extends ConsumerWidget {
 
   const GamePage({ super.key });
@@ -60,7 +62,7 @@ class GamePage extends ConsumerWidget {
                 child: svg
             ),
             if (currentQuestion != null)
-              AnswerButtonPiano(correctKey: currentQuestion.staff.notes.first, isAnnotated: true),
+              AnswerButtonPiano(correctKey: currentQuestion.staff.notes.first.first, isAnnotated: true),
             const Spacer(),
             Text('help',
               style: TextStyle(

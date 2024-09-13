@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muscii/components/muscii_compress_button.dart';
 import 'package:muscii/constants/styles.dart';
 
 class AnswerButtonLong extends StatefulWidget {
@@ -9,46 +10,10 @@ class AnswerButtonLong extends StatefulWidget {
   const AnswerButtonLong({ super.key, required this.text, this.onTap });
 
   @override
-  _AnswerButtonLongState createState() => _AnswerButtonLongState();
+  State<AnswerButtonLong> createState() => _AnswerButtonLongState();
 }
 
-class _AnswerButtonLongState extends State<AnswerButtonLong>
-    with SingleTickerProviderStateMixin
-{
-  static const clickAnimationDurationMillis = 50;
-  double _offsetTransformValue = buttonShadowOffset;
-  late final AnimationController animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: clickAnimationDurationMillis),
-      lowerBound: 0.0,
-      upperBound: buttonShadowOffset,
-    )..addListener(() {
-      setState(() => _offsetTransformValue = buttonShadowOffset - animationController.value);
-    });
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
-  void _shrinkButtonSize() {
-    animationController.forward();
-  }
-
-  void _restoreButtonSize() async {
-    if (animationController.isCompleted) {
-      animationController.reverse();
-    } else {
-      animationController.forward().whenComplete(animationController.reverse);
-    }
-  }
+class _AnswerButtonLongState extends MusciiCompressButton<AnswerButtonLong> {
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +30,14 @@ class _AnswerButtonLongState extends State<AnswerButtonLong>
             ),
           ),
           GestureDetector(
-            onTapDown: (_) => _shrinkButtonSize(),
-            onTapCancel: () => _restoreButtonSize(),
+            onTapDown: (_) => shrinkButtonSize(),
+            onTapCancel: () => restoreButtonSize(),
             onTapUp: (_) {
               widget.onTap?.call();
-              _restoreButtonSize();
+              restoreButtonSize();
             },
             child: Transform.translate(
-              offset: Offset(0, - _offsetTransformValue),
+              offset: Offset(0, - offsetTransformValue),
               child: Container(
                 height: longButtonHeight,
                 decoration: BoxDecoration(

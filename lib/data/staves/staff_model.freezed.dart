@@ -20,8 +20,8 @@ StaffModel _$StaffModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$StaffModel {
-  KeyName get musicKey => throw _privateConstructorUsedError;
-  List<NoteModel> get notes => throw _privateConstructorUsedError;
+  KeySignature get keySignature => throw _privateConstructorUsedError;
+  List<List<NoteModel>> get notes => throw _privateConstructorUsedError;
   Clef? get clef => throw _privateConstructorUsedError;
   String? get timeSignature => throw _privateConstructorUsedError;
 
@@ -42,8 +42,8 @@ abstract class $StaffModelCopyWith<$Res> {
       _$StaffModelCopyWithImpl<$Res, StaffModel>;
   @useResult
   $Res call(
-      {KeyName musicKey,
-      List<NoteModel> notes,
+      {KeySignature keySignature,
+      List<List<NoteModel>> notes,
       Clef? clef,
       String? timeSignature});
 }
@@ -63,20 +63,20 @@ class _$StaffModelCopyWithImpl<$Res, $Val extends StaffModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? musicKey = null,
+    Object? keySignature = null,
     Object? notes = null,
     Object? clef = freezed,
     Object? timeSignature = freezed,
   }) {
     return _then(_value.copyWith(
-      musicKey: null == musicKey
-          ? _value.musicKey
-          : musicKey // ignore: cast_nullable_to_non_nullable
-              as KeyName,
+      keySignature: null == keySignature
+          ? _value.keySignature
+          : keySignature // ignore: cast_nullable_to_non_nullable
+              as KeySignature,
       notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as List<NoteModel>,
+              as List<List<NoteModel>>,
       clef: freezed == clef
           ? _value.clef
           : clef // ignore: cast_nullable_to_non_nullable
@@ -98,8 +98,8 @@ abstract class _$$StaffModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {KeyName musicKey,
-      List<NoteModel> notes,
+      {KeySignature keySignature,
+      List<List<NoteModel>> notes,
       Clef? clef,
       String? timeSignature});
 }
@@ -117,20 +117,20 @@ class __$$StaffModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? musicKey = null,
+    Object? keySignature = null,
     Object? notes = null,
     Object? clef = freezed,
     Object? timeSignature = freezed,
   }) {
     return _then(_$StaffModelImpl(
-      musicKey: null == musicKey
-          ? _value.musicKey
-          : musicKey // ignore: cast_nullable_to_non_nullable
-              as KeyName,
+      keySignature: null == keySignature
+          ? _value.keySignature
+          : keySignature // ignore: cast_nullable_to_non_nullable
+              as KeySignature,
       notes: null == notes
           ? _value._notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as List<NoteModel>,
+              as List<List<NoteModel>>,
       clef: freezed == clef
           ? _value.clef
           : clef // ignore: cast_nullable_to_non_nullable
@@ -147,9 +147,9 @@ class __$$StaffModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$StaffModelImpl extends _StaffModel {
   const _$StaffModelImpl(
-      {this.musicKey = KeyName.c_maj,
-      final List<NoteModel> notes = const [],
-      this.clef,
+      {this.keySignature = KeySignature.c_maj,
+      final List<List<NoteModel>> notes = const [],
+      this.clef = Clef.treble,
       this.timeSignature})
       : _notes = notes,
         super._();
@@ -159,24 +159,25 @@ class _$StaffModelImpl extends _StaffModel {
 
   @override
   @JsonKey()
-  final KeyName musicKey;
-  final List<NoteModel> _notes;
+  final KeySignature keySignature;
+  final List<List<NoteModel>> _notes;
   @override
   @JsonKey()
-  List<NoteModel> get notes {
+  List<List<NoteModel>> get notes {
     if (_notes is EqualUnmodifiableListView) return _notes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_notes);
   }
 
   @override
+  @JsonKey()
   final Clef? clef;
   @override
   final String? timeSignature;
 
   @override
   String toString() {
-    return 'StaffModel(musicKey: $musicKey, notes: $notes, clef: $clef, timeSignature: $timeSignature)';
+    return 'StaffModel(keySignature: $keySignature, notes: $notes, clef: $clef, timeSignature: $timeSignature)';
   }
 
   @override
@@ -184,8 +185,8 @@ class _$StaffModelImpl extends _StaffModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StaffModelImpl &&
-            (identical(other.musicKey, musicKey) ||
-                other.musicKey == musicKey) &&
+            (identical(other.keySignature, keySignature) ||
+                other.keySignature == keySignature) &&
             const DeepCollectionEquality().equals(other._notes, _notes) &&
             (identical(other.clef, clef) || other.clef == clef) &&
             (identical(other.timeSignature, timeSignature) ||
@@ -194,7 +195,7 @@ class _$StaffModelImpl extends _StaffModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, musicKey,
+  int get hashCode => Object.hash(runtimeType, keySignature,
       const DeepCollectionEquality().hash(_notes), clef, timeSignature);
 
   /// Create a copy of StaffModel
@@ -215,8 +216,8 @@ class _$StaffModelImpl extends _StaffModel {
 
 abstract class _StaffModel extends StaffModel {
   const factory _StaffModel(
-      {final KeyName musicKey,
-      final List<NoteModel> notes,
+      {final KeySignature keySignature,
+      final List<List<NoteModel>> notes,
       final Clef? clef,
       final String? timeSignature}) = _$StaffModelImpl;
   const _StaffModel._() : super._();
@@ -225,9 +226,9 @@ abstract class _StaffModel extends StaffModel {
       _$StaffModelImpl.fromJson;
 
   @override
-  KeyName get musicKey;
+  KeySignature get keySignature;
   @override
-  List<NoteModel> get notes;
+  List<List<NoteModel>> get notes;
   @override
   Clef? get clef;
   @override
@@ -354,7 +355,7 @@ class __$$NoteModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NoteModelImpl implements _NoteModel {
   const _$NoteModelImpl(
-      {required this.name, required this.octave, this.duration = 1.0});
+      {required this.name, this.octave = 5, this.duration = 1.0});
 
   factory _$NoteModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NoteModelImplFromJson(json);
@@ -362,6 +363,7 @@ class _$NoteModelImpl implements _NoteModel {
   @override
   final NoteName name;
   @override
+  @JsonKey()
   final int octave;
   @override
   @JsonKey()
@@ -406,7 +408,7 @@ class _$NoteModelImpl implements _NoteModel {
 abstract class _NoteModel implements NoteModel {
   const factory _NoteModel(
       {required final NoteName name,
-      required final int octave,
+      final int octave,
       final double duration}) = _$NoteModelImpl;
 
   factory _NoteModel.fromJson(Map<String, dynamic> json) =

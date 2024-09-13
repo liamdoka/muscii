@@ -23,6 +23,7 @@ mixin _$ReadingGameModel {
   int get id => throw _privateConstructorUsedError;
   int get elo => throw _privateConstructorUsedError;
   List<QuestionModel> get questions => throw _privateConstructorUsedError;
+  int? get startTime => throw _privateConstructorUsedError;
 
   /// Serializes this ReadingGameModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +41,7 @@ abstract class $ReadingGameModelCopyWith<$Res> {
           ReadingGameModel value, $Res Function(ReadingGameModel) then) =
       _$ReadingGameModelCopyWithImpl<$Res, ReadingGameModel>;
   @useResult
-  $Res call({int id, int elo, List<QuestionModel> questions});
+  $Res call({int id, int elo, List<QuestionModel> questions, int? startTime});
 }
 
 /// @nodoc
@@ -61,6 +62,7 @@ class _$ReadingGameModelCopyWithImpl<$Res, $Val extends ReadingGameModel>
     Object? id = null,
     Object? elo = null,
     Object? questions = null,
+    Object? startTime = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,6 +77,10 @@ class _$ReadingGameModelCopyWithImpl<$Res, $Val extends ReadingGameModel>
           ? _value.questions
           : questions // ignore: cast_nullable_to_non_nullable
               as List<QuestionModel>,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -87,7 +93,7 @@ abstract class _$$ReadingGameModelImplCopyWith<$Res>
       __$$ReadingGameModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int elo, List<QuestionModel> questions});
+  $Res call({int id, int elo, List<QuestionModel> questions, int? startTime});
 }
 
 /// @nodoc
@@ -106,6 +112,7 @@ class __$$ReadingGameModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? elo = null,
     Object? questions = null,
+    Object? startTime = freezed,
   }) {
     return _then(_$ReadingGameModelImpl(
       id: null == id
@@ -120,18 +127,24 @@ class __$$ReadingGameModelImplCopyWithImpl<$Res>
           ? _value._questions
           : questions // ignore: cast_nullable_to_non_nullable
               as List<QuestionModel>,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ReadingGameModelImpl implements _ReadingGameModel {
+class _$ReadingGameModelImpl extends _ReadingGameModel {
   _$ReadingGameModelImpl(
       {required this.id,
       required this.elo,
-      required final List<QuestionModel> questions})
-      : _questions = questions;
+      required final List<QuestionModel> questions,
+      this.startTime})
+      : _questions = questions,
+        super._();
 
   factory _$ReadingGameModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReadingGameModelImplFromJson(json);
@@ -149,8 +162,11 @@ class _$ReadingGameModelImpl implements _ReadingGameModel {
   }
 
   @override
+  final int? startTime;
+
+  @override
   String toString() {
-    return 'ReadingGameModel(id: $id, elo: $elo, questions: $questions)';
+    return 'ReadingGameModel(id: $id, elo: $elo, questions: $questions, startTime: $startTime)';
   }
 
   @override
@@ -161,13 +177,15 @@ class _$ReadingGameModelImpl implements _ReadingGameModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.elo, elo) || other.elo == elo) &&
             const DeepCollectionEquality()
-                .equals(other._questions, _questions));
+                .equals(other._questions, _questions) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, elo, const DeepCollectionEquality().hash(_questions));
+  int get hashCode => Object.hash(runtimeType, id, elo,
+      const DeepCollectionEquality().hash(_questions), startTime);
 
   /// Create a copy of ReadingGameModel
   /// with the given fields replaced by the non-null parameter values.
@@ -186,11 +204,13 @@ class _$ReadingGameModelImpl implements _ReadingGameModel {
   }
 }
 
-abstract class _ReadingGameModel implements ReadingGameModel {
+abstract class _ReadingGameModel extends ReadingGameModel {
   factory _ReadingGameModel(
       {required final int id,
       required final int elo,
-      required final List<QuestionModel> questions}) = _$ReadingGameModelImpl;
+      required final List<QuestionModel> questions,
+      final int? startTime}) = _$ReadingGameModelImpl;
+  _ReadingGameModel._() : super._();
 
   factory _ReadingGameModel.fromJson(Map<String, dynamic> json) =
       _$ReadingGameModelImpl.fromJson;
@@ -201,6 +221,8 @@ abstract class _ReadingGameModel implements ReadingGameModel {
   int get elo;
   @override
   List<QuestionModel> get questions;
+  @override
+  int? get startTime;
 
   /// Create a copy of ReadingGameModel
   /// with the given fields replaced by the non-null parameter values.
@@ -217,9 +239,15 @@ QuestionModel _$QuestionModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$QuestionModel {
   String get prompt => throw _privateConstructorUsedError;
+  set prompt(String value) => throw _privateConstructorUsedError;
   StaffModel get staff => throw _privateConstructorUsedError;
+  set staff(StaffModel value) => throw _privateConstructorUsedError;
   bool? get correct => throw _privateConstructorUsedError;
+  set correct(bool? value) => throw _privateConstructorUsedError;
+  int get attempts => throw _privateConstructorUsedError;
+  set attempts(int value) => throw _privateConstructorUsedError;
   List<int>? get options => throw _privateConstructorUsedError;
+  set options(List<int>? value) => throw _privateConstructorUsedError;
 
   /// Serializes this QuestionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -238,7 +266,11 @@ abstract class $QuestionModelCopyWith<$Res> {
       _$QuestionModelCopyWithImpl<$Res, QuestionModel>;
   @useResult
   $Res call(
-      {String prompt, StaffModel staff, bool? correct, List<int>? options});
+      {String prompt,
+      StaffModel staff,
+      bool? correct,
+      int attempts,
+      List<int>? options});
 
   $StaffModelCopyWith<$Res> get staff;
 }
@@ -261,6 +293,7 @@ class _$QuestionModelCopyWithImpl<$Res, $Val extends QuestionModel>
     Object? prompt = null,
     Object? staff = null,
     Object? correct = freezed,
+    Object? attempts = null,
     Object? options = freezed,
   }) {
     return _then(_value.copyWith(
@@ -276,6 +309,10 @@ class _$QuestionModelCopyWithImpl<$Res, $Val extends QuestionModel>
           ? _value.correct
           : correct // ignore: cast_nullable_to_non_nullable
               as bool?,
+      attempts: null == attempts
+          ? _value.attempts
+          : attempts // ignore: cast_nullable_to_non_nullable
+              as int,
       options: freezed == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
@@ -303,7 +340,11 @@ abstract class _$$QuestionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String prompt, StaffModel staff, bool? correct, List<int>? options});
+      {String prompt,
+      StaffModel staff,
+      bool? correct,
+      int attempts,
+      List<int>? options});
 
   @override
   $StaffModelCopyWith<$Res> get staff;
@@ -325,6 +366,7 @@ class __$$QuestionModelImplCopyWithImpl<$Res>
     Object? prompt = null,
     Object? staff = null,
     Object? correct = freezed,
+    Object? attempts = null,
     Object? options = freezed,
   }) {
     return _then(_$QuestionModelImpl(
@@ -340,8 +382,12 @@ class __$$QuestionModelImplCopyWithImpl<$Res>
           ? _value.correct
           : correct // ignore: cast_nullable_to_non_nullable
               as bool?,
+      attempts: null == attempts
+          ? _value.attempts
+          : attempts // ignore: cast_nullable_to_non_nullable
+              as int,
       options: freezed == options
-          ? _value._options
+          ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
               as List<int>?,
     ));
@@ -350,53 +396,34 @@ class __$$QuestionModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$QuestionModelImpl implements _QuestionModel {
-  const _$QuestionModelImpl(
+class _$QuestionModelImpl extends _QuestionModel {
+  _$QuestionModelImpl(
       {required this.prompt,
       required this.staff,
       this.correct,
-      final List<int>? options})
-      : _options = options;
+      this.attempts = 0,
+      this.options})
+      : super._();
 
   factory _$QuestionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuestionModelImplFromJson(json);
 
   @override
-  final String prompt;
+  String prompt;
   @override
-  final StaffModel staff;
+  StaffModel staff;
   @override
-  final bool? correct;
-  final List<int>? _options;
+  bool? correct;
   @override
-  List<int>? get options {
-    final value = _options;
-    if (value == null) return null;
-    if (_options is EqualUnmodifiableListView) return _options;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+  @JsonKey()
+  int attempts;
+  @override
+  List<int>? options;
 
   @override
   String toString() {
-    return 'QuestionModel(prompt: $prompt, staff: $staff, correct: $correct, options: $options)';
+    return 'QuestionModel(prompt: $prompt, staff: $staff, correct: $correct, attempts: $attempts, options: $options)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$QuestionModelImpl &&
-            (identical(other.prompt, prompt) || other.prompt == prompt) &&
-            (identical(other.staff, staff) || other.staff == staff) &&
-            (identical(other.correct, correct) || other.correct == correct) &&
-            const DeepCollectionEquality().equals(other._options, _options));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, prompt, staff, correct,
-      const DeepCollectionEquality().hash(_options));
 
   /// Create a copy of QuestionModel
   /// with the given fields replaced by the non-null parameter values.
@@ -414,29 +441,251 @@ class _$QuestionModelImpl implements _QuestionModel {
   }
 }
 
-abstract class _QuestionModel implements QuestionModel {
-  const factory _QuestionModel(
-      {required final String prompt,
-      required final StaffModel staff,
-      final bool? correct,
-      final List<int>? options}) = _$QuestionModelImpl;
+abstract class _QuestionModel extends QuestionModel {
+  factory _QuestionModel(
+      {required String prompt,
+      required StaffModel staff,
+      bool? correct,
+      int attempts,
+      List<int>? options}) = _$QuestionModelImpl;
+  _QuestionModel._() : super._();
 
   factory _QuestionModel.fromJson(Map<String, dynamic> json) =
       _$QuestionModelImpl.fromJson;
 
   @override
   String get prompt;
+  set prompt(String value);
   @override
   StaffModel get staff;
+  set staff(StaffModel value);
   @override
   bool? get correct;
+  set correct(bool? value);
+  @override
+  int get attempts;
+  set attempts(int value);
   @override
   List<int>? get options;
+  set options(List<int>? value);
 
   /// Create a copy of QuestionModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$QuestionModelImplCopyWith<_$QuestionModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CompletedGameModel _$CompletedGameModelFromJson(Map<String, dynamic> json) {
+  return _CompletedGameModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CompletedGameModel {
+  int? get userId => throw _privateConstructorUsedError;
+  int get timeTaken => throw _privateConstructorUsedError; // in seconds
+  int get correctAnswers => throw _privateConstructorUsedError;
+  int get incorrectAnswers => throw _privateConstructorUsedError;
+
+  /// Serializes this CompletedGameModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CompletedGameModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CompletedGameModelCopyWith<CompletedGameModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CompletedGameModelCopyWith<$Res> {
+  factory $CompletedGameModelCopyWith(
+          CompletedGameModel value, $Res Function(CompletedGameModel) then) =
+      _$CompletedGameModelCopyWithImpl<$Res, CompletedGameModel>;
+  @useResult
+  $Res call(
+      {int? userId, int timeTaken, int correctAnswers, int incorrectAnswers});
+}
+
+/// @nodoc
+class _$CompletedGameModelCopyWithImpl<$Res, $Val extends CompletedGameModel>
+    implements $CompletedGameModelCopyWith<$Res> {
+  _$CompletedGameModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CompletedGameModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? timeTaken = null,
+    Object? correctAnswers = null,
+    Object? incorrectAnswers = null,
+  }) {
+    return _then(_value.copyWith(
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      timeTaken: null == timeTaken
+          ? _value.timeTaken
+          : timeTaken // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      incorrectAnswers: null == incorrectAnswers
+          ? _value.incorrectAnswers
+          : incorrectAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CompletedGameModelImplCopyWith<$Res>
+    implements $CompletedGameModelCopyWith<$Res> {
+  factory _$$CompletedGameModelImplCopyWith(_$CompletedGameModelImpl value,
+          $Res Function(_$CompletedGameModelImpl) then) =
+      __$$CompletedGameModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? userId, int timeTaken, int correctAnswers, int incorrectAnswers});
+}
+
+/// @nodoc
+class __$$CompletedGameModelImplCopyWithImpl<$Res>
+    extends _$CompletedGameModelCopyWithImpl<$Res, _$CompletedGameModelImpl>
+    implements _$$CompletedGameModelImplCopyWith<$Res> {
+  __$$CompletedGameModelImplCopyWithImpl(_$CompletedGameModelImpl _value,
+      $Res Function(_$CompletedGameModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CompletedGameModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? timeTaken = null,
+    Object? correctAnswers = null,
+    Object? incorrectAnswers = null,
+  }) {
+    return _then(_$CompletedGameModelImpl(
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      timeTaken: null == timeTaken
+          ? _value.timeTaken
+          : timeTaken // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      incorrectAnswers: null == incorrectAnswers
+          ? _value.incorrectAnswers
+          : incorrectAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CompletedGameModelImpl implements _CompletedGameModel {
+  const _$CompletedGameModelImpl(
+      {this.userId,
+      required this.timeTaken,
+      required this.correctAnswers,
+      required this.incorrectAnswers});
+
+  factory _$CompletedGameModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CompletedGameModelImplFromJson(json);
+
+  @override
+  final int? userId;
+  @override
+  final int timeTaken;
+// in seconds
+  @override
+  final int correctAnswers;
+  @override
+  final int incorrectAnswers;
+
+  @override
+  String toString() {
+    return 'CompletedGameModel(userId: $userId, timeTaken: $timeTaken, correctAnswers: $correctAnswers, incorrectAnswers: $incorrectAnswers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CompletedGameModelImpl &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.timeTaken, timeTaken) ||
+                other.timeTaken == timeTaken) &&
+            (identical(other.correctAnswers, correctAnswers) ||
+                other.correctAnswers == correctAnswers) &&
+            (identical(other.incorrectAnswers, incorrectAnswers) ||
+                other.incorrectAnswers == incorrectAnswers));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, userId, timeTaken, correctAnswers, incorrectAnswers);
+
+  /// Create a copy of CompletedGameModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CompletedGameModelImplCopyWith<_$CompletedGameModelImpl> get copyWith =>
+      __$$CompletedGameModelImplCopyWithImpl<_$CompletedGameModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CompletedGameModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CompletedGameModel implements CompletedGameModel {
+  const factory _CompletedGameModel(
+      {final int? userId,
+      required final int timeTaken,
+      required final int correctAnswers,
+      required final int incorrectAnswers}) = _$CompletedGameModelImpl;
+
+  factory _CompletedGameModel.fromJson(Map<String, dynamic> json) =
+      _$CompletedGameModelImpl.fromJson;
+
+  @override
+  int? get userId;
+  @override
+  int get timeTaken; // in seconds
+  @override
+  int get correctAnswers;
+  @override
+  int get incorrectAnswers;
+
+  /// Create a copy of CompletedGameModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CompletedGameModelImplCopyWith<_$CompletedGameModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -15,10 +15,15 @@ enum NoteName {
   String get formattedName => (name[0].toUpperCase() + (name.contains("sharp") ? "#" : ""));
 }
 
-enum KeyName {
+enum KeySignature {
   c_maj,
-  c_sharp_maj
+  c_min,
+  c_sharp_maj,
+  c_sharp_min,
+  d_maj;
   // and so on and so forth
+
+  String get formattedName => (name[0].toUpperCase() + (name.contains("sharp") ? "#" : "") + (name.contains("minor") ? " minor" : ""));
 }
 
 enum Clef {
@@ -26,7 +31,7 @@ enum Clef {
   bass
 }
 
-class PianoNotes {
+abstract class PianoNotes {
   static List<NoteName?> topNotes = [
     NoteName.c_sharp,
     NoteName.d_sharp,

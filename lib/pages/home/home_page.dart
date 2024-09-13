@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_scaffold.dart';
@@ -8,9 +7,10 @@ import 'package:muscii/data/auth/auth_provider.dart';
 import 'package:muscii/data/user_data/user_data_provider.dart';
 import 'package:muscii/game/game_page.dart';
 import 'package:muscii/game/test_game_page.dart';
-import 'package:muscii/home/setup_card.dart';
-import 'package:muscii/login/login_page.dart';
+import 'package:muscii/pages/home/setup_card.dart';
+import 'package:muscii/router/app_router.gr.dart';
 
+@RoutePage()
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -21,6 +21,7 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   bool isLoaded = false;
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -29,11 +30,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     final authNotifier = ref.watch(musciiAuthProvider.notifier);
     ref.listen(musciiAuthProvider, (prevAuth, currentAuth) {
-      if (prevAuth == null) return;
-      if (currentAuth.hasValue && !currentAuth.isLoading) {
+      if (currentAuth.hasValue && currentAuth.isLoading == false) {
         if (currentAuth.value!.isEmpty) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const LoginPage()));
+          context.replaceRoute(const LoginRoute());
         } else if (currentAuth.value!.needsRefresh) {
           authNotifier.refresh();
         } else if (currentAuth.value!.isAuthenticated) {
@@ -58,8 +57,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   SetupCard(
                     title: 'Reading',
                     icon: Icons.queue_music_rounded,
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const TestGamePage())),
+                    onTap: () => context.pushRoute(const GameRoute())
                   ),
                   const SizedBox(width: 16),
                   SetupCard(

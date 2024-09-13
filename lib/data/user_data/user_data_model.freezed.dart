@@ -21,21 +21,13 @@ UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserDataModel {
   String get username => throw _privateConstructorUsedError;
-  set username(String value) => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
-  set displayName(String? value) => throw _privateConstructorUsedError;
   int get xp => throw _privateConstructorUsedError;
-  set xp(int value) => throw _privateConstructorUsedError;
   int get streak => throw _privateConstructorUsedError;
-  set streak(int value) => throw _privateConstructorUsedError;
   int get gamesPlayed => throw _privateConstructorUsedError;
-  set gamesPlayed(int value) => throw _privateConstructorUsedError;
   int get perfectGames => throw _privateConstructorUsedError;
-  set perfectGames(int value) => throw _privateConstructorUsedError;
   int get correctAnswers => throw _privateConstructorUsedError;
-  set correctAnswers(int value) => throw _privateConstructorUsedError;
   int get incorrectAnswers => throw _privateConstructorUsedError;
-  set incorrectAnswers(int value) => throw _privateConstructorUsedError;
 
   /// Serializes this UserDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -220,26 +212,52 @@ class _$UserDataModelImpl implements _UserDataModel {
       _$$UserDataModelImplFromJson(json);
 
   @override
-  String username;
+  final String username;
   @override
-  String? displayName;
+  final String? displayName;
   @override
-  int xp;
+  final int xp;
   @override
-  int streak;
+  final int streak;
   @override
-  int gamesPlayed;
+  final int gamesPlayed;
   @override
-  int perfectGames;
+  final int perfectGames;
   @override
-  int correctAnswers;
+  final int correctAnswers;
   @override
-  int incorrectAnswers;
+  final int incorrectAnswers;
 
   @override
   String toString() {
     return 'UserDataModel(username: $username, displayName: $displayName, xp: $xp, streak: $streak, gamesPlayed: $gamesPlayed, perfectGames: $perfectGames, correctAnswers: $correctAnswers, incorrectAnswers: $incorrectAnswers)';
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserDataModelImpl &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.xp, xp) || other.xp == xp) &&
+            (identical(other.streak, streak) || other.streak == streak) &&
+            (identical(other.gamesPlayed, gamesPlayed) ||
+                other.gamesPlayed == gamesPlayed) &&
+            (identical(other.perfectGames, perfectGames) ||
+                other.perfectGames == perfectGames) &&
+            (identical(other.correctAnswers, correctAnswers) ||
+                other.correctAnswers == correctAnswers) &&
+            (identical(other.incorrectAnswers, incorrectAnswers) ||
+                other.incorrectAnswers == incorrectAnswers));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, username, displayName, xp,
+      streak, gamesPlayed, perfectGames, correctAnswers, incorrectAnswers);
 
   /// Create a copy of UserDataModel
   /// with the given fields replaced by the non-null parameter values.
@@ -259,42 +277,34 @@ class _$UserDataModelImpl implements _UserDataModel {
 
 abstract class _UserDataModel implements UserDataModel {
   factory _UserDataModel(
-      {required String username,
-      String? displayName,
-      required int xp,
-      required int streak,
-      required int gamesPlayed,
-      required int perfectGames,
-      required int correctAnswers,
-      required int incorrectAnswers}) = _$UserDataModelImpl;
+      {required final String username,
+      final String? displayName,
+      required final int xp,
+      required final int streak,
+      required final int gamesPlayed,
+      required final int perfectGames,
+      required final int correctAnswers,
+      required final int incorrectAnswers}) = _$UserDataModelImpl;
 
   factory _UserDataModel.fromJson(Map<String, dynamic> json) =
       _$UserDataModelImpl.fromJson;
 
   @override
   String get username;
-  set username(String value);
   @override
   String? get displayName;
-  set displayName(String? value);
   @override
   int get xp;
-  set xp(int value);
   @override
   int get streak;
-  set streak(int value);
   @override
   int get gamesPlayed;
-  set gamesPlayed(int value);
   @override
   int get perfectGames;
-  set perfectGames(int value);
   @override
   int get correctAnswers;
-  set correctAnswers(int value);
   @override
   int get incorrectAnswers;
-  set incorrectAnswers(int value);
 
   /// Create a copy of UserDataModel
   /// with the given fields replaced by the non-null parameter values.

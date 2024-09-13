@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_data_model.g.dart';
 part 'user_data_model.freezed.dart';
 
-@unfreezed
+@freezed
 class UserDataModel with _$UserDataModel {
   factory UserDataModel({
     required String username,

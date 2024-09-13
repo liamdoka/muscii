@@ -1,14 +1,15 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muscii/components/muscii_heading.dart';
 import 'package:muscii/constants/styles.dart';
 import 'package:muscii/data/auth/auth_model.dart';
 import 'package:muscii/data/auth/auth_provider.dart';
-import 'package:muscii/data/user_data/user_data_model.dart';
 import 'package:muscii/data/user_data/user_data_provider.dart';
-import 'package:muscii/home/home_page.dart';
-import 'package:muscii/sign_up/sign_up_page.dart';
+import 'package:muscii/router/app_router.gr.dart';
 
+@RoutePage()
 class LoginPage extends ConsumerWidget {
 
   const LoginPage({super.key});
@@ -17,12 +18,14 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final authNotifier = ref.watch(musciiAuthProvider.notifier);
-    ref.listen(musciiAuthProvider, (_, currentAuth) {
+    final userDataNotifier = ref.watch(userDataProvider.notifier);
+    ref.listen(musciiAuthProvider, (_, currentAuth) async {
       if (currentAuth.hasValue && !currentAuth.isLoading) {
         if (currentAuth.value!.isAuthenticated) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage())
-          );
+          await userDataNotifier.sync();
+          if (context.mounted) {
+            context.replaceRoute(const HomeRoute());
+          }
         } else if (currentAuth.value!.needsRefresh) {
           authNotifier.refresh();
         }
@@ -31,11 +34,6 @@ class LoginPage extends ConsumerWidget {
 
     final usernameController = TextEditingController();
     final passwordController = TextEditingController();
-
-    final AsyncValue<UserDataModel> userData = ref.watch(userDataProvider);
-    if (userData.hasValue && userData.value!.username.isNotEmpty) {
-      usernameController.text = userData.value!.username;
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -119,9 +117,7 @@ class LoginPage extends ConsumerWidget {
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: () =>
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const SignUpPage())
-                      ),
+                        context.pushRoute(const SignUpRoute()),
                     style: bigButtonStyle,
                     child: const Text('Sign up')
                   )
